@@ -120,10 +120,13 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                         Double.parseDouble(jsonObject.getString("Lng")));
                 mMap.addMarker(new MarkerOptions()
                         .position(LatLng)
-                        .icon(BitmapDescriptorFactory.fromResource(avataInts[Integer.parseInt(jsonObject.getString("Avata"))]))
+                        .icon(BitmapDescriptorFactory
+                                .fromResource(avataInts[Integer.parseInt(jsonObject.getString("Avata"))]))
+                        .title(jsonObject.getString("Name"))
                 );
 
             } //for
+            getUser.cancel(true);
 
 
         } catch (Exception e) {
@@ -140,6 +143,7 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                     Double.toString(userLngADouble));
             boolean b = Boolean.parseBoolean(editLatLng.get());
             Log.d("17febV2", "Result ==> " + b);
+            editLatLng.cancel(true);
 
         } catch (Exception e) {
             Log.d("17febV2", "e update ==> " + e.toString());
