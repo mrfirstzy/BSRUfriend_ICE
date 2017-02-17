@@ -123,6 +123,8 @@ public class ServiceActivity extends FragmentActivity implements OnMapReadyCallb
                         .icon(BitmapDescriptorFactory
                                 .fromResource(avataInts[Integer.parseInt(jsonObject.getString("Avata"))]))
                         .title(jsonObject.getString("Name"))
+
+
                 );
 
             } //for
