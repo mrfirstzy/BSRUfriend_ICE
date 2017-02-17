@@ -1,8 +1,11 @@
 package appewtc.masterung.bsrufriend;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -25,10 +28,10 @@ public class ListFriendActivity extends AppCompatActivity {
             getUser.execute(myConstant.getUrlPHPString());
             String strJSON = getUser.get();
             JSONArray jsonArray = new JSONArray(strJSON);
-            String[] nameStrings = new String[jsonArray.length()];
-            String[] imageStrings = new String[jsonArray.length()];
-            String[] latStrings = new String[jsonArray.length()];
-            String[] lngStrings = new String[jsonArray.length()];
+            final String[] nameStrings = new String[jsonArray.length()];
+            final String[] imageStrings = new String[jsonArray.length()];
+            final String[] latStrings = new String[jsonArray.length()];
+            final String[] lngStrings = new String[jsonArray.length()];
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -44,6 +47,18 @@ public class ListFriendActivity extends AppCompatActivity {
                     nameStrings
             );
             listView.setAdapter(friendAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(ListFriendActivity.this,DetailFraend.class);
+                    intent.putExtra("Name", nameStrings[i]);
+                    intent.putExtra("Image", imageStrings[i]);
+                    intent.putExtra("Lat", latStrings[i]);
+                    intent.putExtra("Lng", lngStrings[i]);
+                    startActivity(intent);
+
+                }
+            });
 
         } catch (Exception e) {
             Log.d("17febV3", "e Listview ==>" + e.toString());
